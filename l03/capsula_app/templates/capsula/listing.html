@@ -1,0 +1,36 @@
+{% extends 'layout.html' %}
+
+{% block title %}Orders{% endblock %}
+
+{% block content %}
+  <h1 class="ui header">Orders</h1>
+
+  <table class='ui large celled selectable table'>
+    <thead>
+      <tr>
+        <th>Client</th>
+        <th>Address</th>
+        <th>Purchases</th>
+        <th>Price</th>
+        <th>Created on</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for order in orders %}
+      <tr>
+        <td>{{ order.client.name }}</td>
+        <td>{{ order.client.address }}</td>
+        <td>
+          <table class='ui small very basic celled table'>
+          {% for product in order.products.all %}
+            <tr><td>{{ product.title }}</td><td>${{ product.cost }}</td></tr>
+          {% endfor %}
+          </table>
+        </td>
+        <td>${{ order.price }}</td>
+        <td>{{ order.created_on }}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}
